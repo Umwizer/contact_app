@@ -155,7 +155,7 @@
         ],
 
         "responses": {
-          "204": {
+          "201": {
             "description": "Contact deleted"
           },
           "404": {
