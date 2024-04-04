@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import swaggerUi from "swagger-ui-express";
+import fs from 'fs';
+const swagger = JSON.parse(fs.readFileSync("./docs/swagger.json", "utf-8"));
 import express from 'express';
 const app = express();
 import configuration from './configs/index.js';
@@ -19,12 +22,11 @@ app.use(express.json());
 mongoose.connect(configuration.mongoURI)
 .then(() => {
  //routes
- 
- app.use("/api/contact",contactRouter);
+ app.use("/contact",contactRouter);
+ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagger))
+
  app.use(errorHandler.notFound)
  app.use(errorHandler.serverError)
-
-
     app.listen(configuration.port, ()=> {
         console.log("listening on port "+configuration.port);
     });

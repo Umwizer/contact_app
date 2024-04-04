@@ -1,0 +1,197 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Contact API",
+    "description": "API documentation for contact CRUD operations",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "",
+  "schemes": ["http", "https"],
+  "paths": {
+    "/contact/create": {
+      "post": {
+        "summary": "Create a new contact",
+        "description": "Create a new contact",
+        "tags": ["Contact"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            },
+            "required": true,
+            "description": "Contact object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contact created"
+          }
+        }
+      }
+    },
+    "/contact/listAll": {
+      "get": {
+        "summary": "Get all contacts",
+        "description": "Retrieve all contacts",
+        "tags": ["Contacts"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Contact"
+              }
+            }
+          }
+        }
+      }
+    }
+    ,
+    "/contact/list/{id}": {
+      "get": {
+        "summary": "Get by Id contact",
+        "description": "Retrieve contact by ID", 
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the contact to retrieve",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      }
+    },
+    "/contact/email/{email}": { 
+      "get": {
+        "summary": "Get by Email contact",
+        "description": "Retrieve contact by email", 
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Email of the contact to retrieve",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      }
+    },
+    "/contact/update/{id}": {
+      "put": {
+        "summary": "Update a contact by ID",
+        "description": "Update a contact by ID",
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the contact to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            },
+            "required": true,
+            "description": "Updated contact object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact updated"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      }
+    },
+  
+    "/contact/delete/{id}": {
+      "delete": {
+        "summary": "Delete a contact by ID",
+        "description": "Delete a contact by ID",
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the contact to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "204": {
+            "description": "Contact deleted"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "firstName":{
+       "type":"string"
+        },
+        "lastName":{
+          "type":"string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "workPhone": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        }
+      },
+      "required": ["firstName","lastName", "email", "address", "phone", "workPhone", "company"]
+    }
+  }
+}
