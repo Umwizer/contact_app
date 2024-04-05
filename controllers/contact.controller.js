@@ -124,13 +124,17 @@ const contactController = {
 
   deleteContact: async (req, res) => {
     try {
-      const deleteContact = await contactModel.findOneAndDelete(req.params.id);
+      const deleteContact = await contactModel.findOneAndDelete({ _id: req.params.id });
+      if (!deleteContact) {
+        return res.status(404).json({ message: "Contact not found" });
+      }
       res.status(200).json({
-        message: `contact deleted successfuly`,
+        message: `Contact deleted successfully`,
         contact: deleteContact,
       });
-    } catch (eror) {
-      console.log(eror.message);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ message: "Internal server error" });
     }
   },
 
